@@ -3,7 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import cookieparser from 'cookie-parser'
 import {userRouter} from './routes/userRouter.js' 
-// import {connection} from './config/db.js'
+import {connection} from './config/db.js'
 export const app = express()
 
 

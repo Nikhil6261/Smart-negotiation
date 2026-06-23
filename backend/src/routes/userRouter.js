@@ -1,5 +1,5 @@
 import express from 'express'
-import {login} from '../controller/user.js'
+import {login, register} from '../controller/user.js'
 
 
 
@@ -7,8 +7,9 @@ import {login} from '../controller/user.js'
 export const userRouter = express.Router()
 
 
-userRouter.post('/login',login)
 
+userRouter.post('/register',register)
+userRouter.post('/login',login)
 
 
 

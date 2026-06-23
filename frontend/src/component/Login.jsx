@@ -1,10 +1,44 @@
 import React from "react";
 import { Mail, Lock, LogIn } from "lucide-react";
 import {useNavigate} from 'react-router-dom'
+import  AxiosInstance from '../Api/Axios'
+import { useState } from "react";
+
 
 const Login = () => {
 
 const navigate = useNavigate()
+
+
+function Register() {
+
+  const [formData , Setformdata] = useState({name : "",email : "",password: ""})
+
+  const [loading , setLoadig] = useState(false);
+  const [error, setError] = useState("");
+  const [success , setSuccess] = useState("");
+
+console.log(formData);
+
+
+  const handlechage = async (e)=>{
+
+    e.preventDefault();
+
+    setLoadig(true)
+    setError("")
+    setSuccess("")
+
+
+    try {
+      
+      // const data  =await AxiosInstance.post('/user' , )
+    } catch (error) {
+      
+    }
+  }
+
+}
 
 
   return (
@@ -30,8 +64,10 @@ const navigate = useNavigate()
           <div className="relative">
             <Mail className="absolute left-3 top-3.5 text-gray-400" size={20} />
             <input
+            name="email"
               type="email"
               placeholder="Enter your email"
+              value={FormData.email}
               className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/10 border border-gray-500 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-purple-500 transition duration-300"
             />
           </div>
@@ -41,7 +77,9 @@ const navigate = useNavigate()
             <Lock className="absolute left-3 top-3.5 text-gray-400" size={20} />
             <input
               type="password"
+              name="password"
               placeholder="Enter your password"
+              value={FormData.password}
               className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/10 border border-gray-500 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-pink-500 transition duration-300"
             />
           </div>
