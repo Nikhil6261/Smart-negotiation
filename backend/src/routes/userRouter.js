@@ -8,9 +8,5 @@ export const userRouter = express.Router()
 
 
 
-userRouter.post('/register', authlimit,register)
+userRouter.post('/register', authlimit,register);
 userRouter.post('/login',login)
-
-
-
-
