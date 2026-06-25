@@ -2,6 +2,7 @@ import React from "react";
 import { User, Mail, Lock, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Axiosinstance from "../Api/Axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -19,21 +20,38 @@ const Register = () => {
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    setFormData( (prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     const isMatch = formData.password === formData.confirmPassword;
     console.log(isMatch);
-    
   };
 
-  const handlesumit = (e) => {
+  const handlesumit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-  
+
+    try {
+      const result = await Axiosinstance.post("/register", formData);
+      console.log(result);
+
+      if (result.status) navigate("/login");
+      
+    } catch (error) {
+      //check which error is comming 
+      switch (error.status) {
+        case 400: {
+          console.log(error.data);
+          break;
+        }
+        case 409: {
+          console.log("User already exists");
+          break;
+        }
+        default: {
+          console.log("somethink went wrong");
+        }
+      }
+    }
   };
-
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-950 flex items-center justify-center p-4 overflow-hidden">

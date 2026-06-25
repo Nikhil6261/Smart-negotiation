@@ -9,6 +9,8 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Api from '../Api/Axios'
+
 
 // Animation Variants
 const fadeInUp = {
@@ -26,6 +28,26 @@ const staggerContainer = {
 
 export default function HomePage() {
   const navigate = useNavigate();
+
+
+  const Checkratelimit = async ()=>{
+
+    try {
+      
+      let name = "nikhil"
+      let email = "nikhil@213"
+      let password= "nikhil123"
+
+      const result = await  Api.post('/user' , {name , email , password}) 
+    
+      console.log(result);
+       
+  } catch (error) {
+      
+console.log(error.massage);
+
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#09090b] text-white overflow-x-hidden font-sans">
@@ -86,7 +108,7 @@ export default function HomePage() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="px-4 sm:px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-colors shadow-lg shadow-white/5"
-          >
+          onClick={ Checkratelimit }  >
             Launch Dashboard
           </motion.button>
         </div>
