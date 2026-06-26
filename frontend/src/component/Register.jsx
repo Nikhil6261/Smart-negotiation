@@ -30,7 +30,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const result = await Axiosinstance.post("/register", formData);
+      const result = await Axiosinstance.post("/api/register", formData);
       console.log(result);
 
       if (result.status) navigate("/login");

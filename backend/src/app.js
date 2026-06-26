@@ -15,9 +15,10 @@ app.use(urlencoded({extended:true}))
 app.use(express.json())
 app.use(cors({
 
-    origin:process.env.CLIENT_ORIGIN ,
+    origin:["https://smart-negotiation.vercel.app", "http://localhost:5173"],
     credentials:true 
 } ))
+
 
 app.use(cookieparser())
 
