@@ -22,39 +22,52 @@ export const login = async (req, res) => {
       [email],
     );
 
-    // if (result.length === 0) {
-    //   return res
-    //     .status(HTTP_STATUS.NOT_FOUND)
-    //     .json({ success: true, message: "user not found" });
-    // }
+    if (result.length === 0) {
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ success: true, message: "user not found" });
+    }
 
-    const user = result[0]
+    const user = result[0];
 
-    
-     const isMatch = await bcrypt.compare(password , user.password )
+    const isMatch = await bcrypt.compare(password, user.password);
 
-     if(!isMatch){
-    return  res.status(HTTP_STATUS.UNAUTHORIZED).json({success : false , message : " invalid creditional"})
-     } 
+    let token = jwt.sign(user, process.env.SECRET);
 
+    if (!isMatch) {
+      return res
+        .status(HTTP_STATUS.UNAUTHORIZED)
+        .json({ success: false, message: " invalid creditional" });
+    }
 
+    console.log(user);
 
-    res.status(HTTP_STATUS.ok).json({
+    res.cookie("token", token, {
+      maxAge: 7 * 24 * 1000,
+    });
+
+    return res.status(HTTP_STATUS.OK).json({
       success: true,
       message: "credeintal match",
       data: result,
+      token: token,
+      role:result.role
     });
   } catch (error) {
     res
       .status(HTTP_STATUS.NOT_FOUND)
-      .json({ success: false, message: error.message });
+      .json({
+        success: false,
+        message: error.message,
+        user: toClientuser(req.user),
+      });
   }
 };
 
 export const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !role) {
     return res.status(400).json({
       success: false,
       message: "All fields are required",
@@ -69,7 +82,7 @@ export const register = async (req, res) => {
 
     if (user_exits.length > 0) {
       console.log(user_exits);
-      
+
       return res
         .status(HTTP_STATUS.ALLREADY_EXISTES)
         .json({ success: false, message: "user all ready exits" });
@@ -77,15 +90,17 @@ export const register = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const query = "INSERT INTO user(name, email, password) VALUES (?, ?, ?)";
+    const query =
+      "INSERT INTO user(name, email, password, role) VALUES (?, ?, ?, ?)";
 
     const [result] = await connection.execute(query, [
       name,
       email,
       hashPassword,
+      role,
     ]);
 
-    console.log(name, email, hashPassword);
+    console.log(name, email, hashPassword, role);
 
     return res.status(HTTP_STATUS.CREATED).json({
       success: true,

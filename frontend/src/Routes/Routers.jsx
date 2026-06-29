@@ -1,20 +1,27 @@
 import React from "react";
 import {  Routes, Route } from "react-router-dom";
-import Home from "../component/Home";
-import Loading from "../component/Loading";
+import { lazy } from "react";
+
+const Home = lazy(()=> import("../component/Home") ) 
+const Loading  = lazy(()=> import("../component/Loading"))
+
 import Login from "../component/Login";
 import Register from "../component/Register";
 import Notfound from "../component/Notfound";
 
 
-import BuyerDashboard from "../Pages/Buyer/BuyerDash";
-import Pending from '../Pages/Buyer/Pending'
-import Accept from '../Pages/Buyer/Accept'
-import NegotiationHistory from '../Pages/Buyer/History'
-import Viewprofile from '../Pages/Buyer/ViewProfile'
-import DealRejectionPage from '../Pages/Buyer/RejectPage'
+const BuyerDashboard = lazy(()=> import("../Pages/Buyer/BuyerDash"))
+const Pending = lazy(()=> import( '../Pages/Buyer/Pending'))
+const Accept = lazy(()=> import( '../Pages/Buyer/Accept'))
 
-import SellerDashboard from "../Pages/seller/SellerDashboard";
+const NegotiationHistory = lazy(()=> import('../Pages/Buyer/History'))
+
+
+const Viewprofile = lazy(()=> import( '../Pages/Buyer/ViewProfile') )
+
+const DealRejectionPage = lazy(()=>import('../Pages/Buyer/RejectPage')) 
+
+const SellerDashboard =lazy( ()=>import("../Pages/Seller/SellerDashboard"))
 
 
 
@@ -30,7 +37,7 @@ const Routers = () => {
         <Route path="/register" element={<Register />} />
 
 //buyer
-        <Route path="/sellerdash" element={<SellerDashboard/> } />
+        <Route path="/buyerdash" element={<BuyerDashboard/> } />
         <Route path="/pending" element={<Pending/> } />
         <Route path="/accept" element={<Accept/> } />
         <Route path="/history" element={<NegotiationHistory/> } />
@@ -40,7 +47,7 @@ const Routers = () => {
 
 
 //seller
-        <Route path="/buyerdash" element={<BuyerDashboard/> } />
+        <Route path="/sellerdash" element={<SellerDashboard/> } />
 
         <Route path="*" element={<Notfound />} />
       </Routes>
