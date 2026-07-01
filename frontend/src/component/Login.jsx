@@ -3,6 +3,9 @@ import { Mail, Lock, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../Api/Axios";
 import { useState } from "react";
+import {useDispatch} from 'react-redux'
+import { setUser } from "../Redux/Features/ProfileSlice";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +14,9 @@ const Login = () => {
 
   const [loading, setLoadig] = useState(false);
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch()
+
 
   const handleSubmit = (e) => {
     const { name, value } = e.target;
@@ -29,16 +35,29 @@ const Login = () => {
 
       console.log(result.data.data[0].role);
 
-      let role  = result.data.data[0].role
- 
+      let role = result.data.data[0].role;
+      let token = result.data.token;
+
+
+      console.log(result.data.data[0]);
+      
+      dispatch((
+        setUser({
+          user:result.data.data[0],
+          token: token,
+          isAuthanicate:true
+        })
+      ))
+
+
+      localStorage.setItem("token", token);
 
 
       if (role === "seller") {
-  navigate("/sellerdash");
-} else if (role === "buyer") {
-  navigate("/buyerdash");
-}
-
+        navigate("/sellerdash");
+      } else if (role === "buyer") {
+        navigate("/buyerdash");
+      }
     } catch (error) {
       console.log(error.message);
     }

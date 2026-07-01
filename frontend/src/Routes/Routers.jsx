@@ -8,6 +8,7 @@ const Loading  = lazy(()=> import("../component/Loading"))
 import Login from "../component/Login";
 import Register from "../component/Register";
 import Notfound from "../component/Notfound";
+import SellerNavbar from "../Pages/Seller/SellerNav";
 
 
 const BuyerDashboard = lazy(()=> import("../Pages/Buyer/BuyerDash"))
@@ -48,6 +49,7 @@ const Routers = () => {
 
 //seller
         <Route path="/sellerdash" element={<SellerDashboard/> } />
+        <Route path="/sellernav" element={<SellerNavbar/> } />
 
         <Route path="*" element={<Notfound />} />
       </Routes>

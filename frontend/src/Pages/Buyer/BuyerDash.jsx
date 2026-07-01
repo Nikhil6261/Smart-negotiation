@@ -4,7 +4,10 @@ import {
   ArrowUpRight, ChevronRight, CheckCircle2, History 
 } from 'lucide-react';
 
-import BuyerNavbar from './BuyerNav'
+  import BuyerNavbar from './BuyerNav'
+  import checkUser from '../../funtions/checkUser'
+
+
 
 export default function BuyerDashboard() {
   const [myBids] = useState([
@@ -12,6 +15,9 @@ export default function BuyerDashboard() {
     { id: 2, item: "High-Performance Database Cluster", seller: "CloudNode Systems", initialOffer: "$3,200", currentCounter: "$3,200", status: "AI Haggling...", color: "bg-teal-500/10 text-teal-400 border-teal-500/20 animate-pulse" },
     { id: 3, item: "E-Commerce Optimization Script", seller: "CodeFlow LLC", initialOffer: "$180", currentCounter: "$195", status: "Offer Accepted", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" }
   ]);
+
+
+  checkUser()
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased">

@@ -40,8 +40,6 @@ export const login = async (req, res) => {
         .json({ success: false, message: " invalid creditional" });
     }
 
-    console.log(user);
-
     res.cookie("token", token, {
       maxAge: 7 * 24 * 1000,
     });
@@ -51,16 +49,13 @@ export const login = async (req, res) => {
       message: "credeintal match",
       data: result,
       token: token,
-      role:result.role
+      role: result.role,
     });
   } catch (error) {
-    res
-      .status(HTTP_STATUS.NOT_FOUND)
-      .json({
-        success: false,
-        message: error.message,
-        user: toClientuser(req.user),
-      });
+    res.status(HTTP_STATUS.NOT_FOUND).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -116,3 +111,21 @@ export const register = async (req, res) => {
     });
   }
 };
+
+export const getme = async (req,res) => {
+
+const {id , role} = req.user
+
+console.log( id , role);
+
+// const [query] = `SELECT * FROM  where(id) values(?)`;
+
+// const result = await connection.execute(query,[id])
+
+// console.log(query);
+
+
+
+ };
+
+

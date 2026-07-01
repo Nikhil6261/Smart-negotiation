@@ -3,6 +3,7 @@ import {
   BarChart3, ShieldCheck, Layers, EyeOff, 
   Settings, ArrowUpRight, ArrowRight, Sparkles 
 } from 'lucide-react';
+import SellerNav from './SellerNav'
 
 export default function SellerDashboard() {
   const [inventory] = useState([
@@ -14,21 +15,9 @@ export default function SellerDashboard() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans antialiased">
       {/* Top Seller Bar */}
-      <nav className="border-b border-slate-800 bg-slate-950/50 backdrop-blur px-8 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="bg-indigo-600 p-2 rounded-xl text-white shadow-lg shadow-indigo-600/20">
-            <BarChart3 size={20} />
-          </div>
-          <div>
-            <span className="font-bold tracking-tight text-lg">Negotio<span className="text-indigo-500">.ai</span></span>
-            <span className="text-[10px] uppercase tracking-wider block text-indigo-400 font-bold">Seller Engine</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-xs bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 font-medium">Store: TechStack Solutions</span>
-          <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center font-bold text-sm text-white">TS</div>
-        </div>
-      </nav>
+      
+
+<SellerNav/>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-8 py-10 space-y-8">
