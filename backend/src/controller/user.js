@@ -112,20 +112,21 @@ export const register = async (req, res) => {
   }
 };
 
-export const getme = async (req,res) => {
+export const getme = async (req, res) => {
+  const { id, role, name } = req.user;
 
-const {id , role} = req.user
-
-console.log( id , role);
-
-// const [query] = `SELECT * FROM  where(id) values(?)`;
-
-// const result = await connection.execute(query,[id])
-
-// console.log(query);
+  console.log(id, role , name);
 
 
 
- };
+  if (role == "buyer") {
 
 
+    const [query] = `SELECT * FROM ${product} where(id) values(?)`;
+
+    // const result = await connection.execute(query,[id])
+
+    // console.log(query);
+  } else if (role == "seller") {
+  }
+};

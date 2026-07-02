@@ -3,10 +3,13 @@ import {getme, login, register} from '../controller/user.js'
 import {authlimit} from '../middleware/rateLimiter.js'
 import {protect} from '../middleware/authMiddleware.js'
 
+
+
 export const userRouter = express.Router()
 
+// authlimit : put it in all the routes
 userRouter.post('/register', authlimit,register);
-userRouter.post('/login', authlimit, login)
-userRouter.get('/getme', authlimit , protect ,getme)
+userRouter.post('/login',  login)
+userRouter.get('/getme',   protect ,getme)
 
 

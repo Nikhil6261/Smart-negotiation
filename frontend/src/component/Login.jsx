@@ -3,9 +3,9 @@ import { Mail, Lock, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../Api/Axios";
 import { useState } from "react";
-import {useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../Redux/Features/ProfileSlice";
-
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,14 +15,34 @@ const Login = () => {
   const [loading, setLoadig] = useState(false);
   const [error, setError] = useState("");
 
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     const { name, value } = e.target;
 
     SetFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+
+ const { isAuthanicate, user} = useSelector((state) => state.profile);
+ const handleIsAuth = () => {
+
+
+  if (isAuthanicate) {
+
+    if(user.user.role === 'seller')
+    navigate("/sellerdash");
+   else if (user.user.role === 'buyer')
+    navigate("/buyerdash");
+}
+
+}
+
+useEffect(() => {
+  handleIsAuth();
+}, [isAuthanicate]);
+
+
 
   const handlechange = async (e) => {
     e.preventDefault();
@@ -33,25 +53,18 @@ const Login = () => {
     try {
       const result = await AxiosInstance.post("/api/login", FormData);
 
-      console.log(result.data.data[0].role);
-
       let role = result.data.data[0].role;
       let token = result.data.token;
 
-
-      console.log(result.data.data[0]);
-      
-      dispatch((
+      dispatch(
         setUser({
-          user:result.data.data[0],
+          user: result.data.data[0],
           token: token,
-          isAuthanicate:true
-        })
-      ))
-
+          isAuthanicate: true,
+        }),
+      );
 
       localStorage.setItem("token", token);
-
 
       if (role === "seller") {
         navigate("/sellerdash");

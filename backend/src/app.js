@@ -25,6 +25,9 @@ app.use(cookieparser())
 
 
 app.use('/api', userRouter) //security
+// app.use('/buyer', userRouter) //security
+
+app.use('/seller',userRouter) //security
 
 // app.get('/',(req,res) => res.json(' server is working perperly' ))
 

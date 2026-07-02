@@ -29,15 +29,13 @@ const ProfileSlice = createSlice({
         email: null,
         role: null,
       };
-      token : null,
-      isAuthanicate = false
+      state.token = null,
+      state.isAuthanicate = false
     },
 
 
   },
 });
-
-
 
 export const { setUser , logOut} = ProfileSlice.actions
 

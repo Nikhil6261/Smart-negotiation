@@ -19,8 +19,7 @@ AxiosInstance.interceptors.request.use(
     if (token) config.headers.Authorization = ` bearber ${token}`;
 
     return config;
-  },
-  (error) => {
+  },(error) => {
     return Promise.reject(error);
   },
 );

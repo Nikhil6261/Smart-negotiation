@@ -16,6 +16,13 @@ export const protect = async (req, res, next) => {
     
 
     req.user = decoded
+    
+    res.status(HTTP_STATUS.OK).json({
+      success:true,
+      message:"user data ",
+      data : decoded
+
+    })
     next();
 
   } catch (error) {
